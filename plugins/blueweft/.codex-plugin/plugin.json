@@ -1,0 +1,115 @@
+{
+  "name": "blueweft",
+  "version": "1.0.5",
+  "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
+  "author": {
+    "name": "Blueweft"
+  },
+  "homepage": "https://blueweft.com",
+  "repository": "https://github.com/mrrasmussendk/blueweft-claude-plugin",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Blueweft",
+    "shortDescription": "Edit architecture with Codex",
+    "longDescription": "Create and update architecture diagrams, connections, boundary rules and architectural decisions through your Codex conversation. Approve access to your Blueweft browser workspace without creating a Blueweft account or copying tokens. Changes are proposed, version checked, and explicitly applied to the live project. View and edit the architecture inline in chat, including component sequence diagrams and internal flows. External editor links are optional. Checkpoints support undo. Validation checks the diagram and its rules; it does not verify repository code. Unsaved canvas edits are preserved rather than overwritten.",
+    "developerName": "Blueweft",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Create architecture and C4 diagrams",
+      "Edit component sequence, flow and state diagrams inline",
+      "Model deployments, API contracts and scenarios",
+      "Record boundary rules and architectural decisions",
+      "Validate design rules and restore checkpoints",
+      "Create immutable snapshots and implementation handoffs",
+      "Manage saved views and complete project backups",
+      "Review diagram image imports with the chat host",
+      "Inspect local repositories and execute authorized checks"
+    ],
+    "websiteURL": "https://blueweft.com",
+    "supportURL": "https://github.com/mrrasmussendk/blueweft-claude-plugin/issues",
+    "defaultPrompt": [
+      "Create an architecture with a web client, Orders API and PostgreSQL database.",
+      "Add a rule that prevents the web client from accessing the database directly.",
+      "Validate the architecture and explain any rule violations.",
+      "Add a sequence diagram and internal validation flow to the Orders API, and keep them inline in chat."
+    ],
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Create a diagram",
+              "prompt": "Create a project named Plugin Review with a web client, Orders API and PostgreSQL. Connect web to API and API to database.",
+              "tools_triggered": "architecture_editing_guide, create_project, read_project, propose_architecture, apply_architecture_proposal, validate_project, open_architecture_canvas",
+              "expected_behavior": "The project contains three components and two connections; an inline canvas opens in compatible hosts."
+            },
+            {
+              "description": "Add a boundary rule",
+              "prompt": "In Plugin Review, forbid the web client from accessing PostgreSQL directly.",
+              "tools_triggered": "list_projects, read_project, propose_architecture, apply_architecture_proposal, validate_project",
+              "expected_behavior": "The rule is persisted; existing IDs and connections are preserved and validation passes."
+            },
+            {
+              "description": "Record a decision",
+              "prompt": "Record our decision to use PostgreSQL for transactions in Plugin Review, linked to the API and database.",
+              "tools_triggered": "list_projects, read_project, propose_architecture, apply_architecture_proposal",
+              "expected_behavior": "A durable decision is saved without replacing existing diagram content."
+            },
+            {
+              "description": "Validate a violation",
+              "prompt": "In Plugin Review, add a direct web-to-database connection, then validate the architecture.",
+              "tools_triggered": "read_project, propose_architecture, apply_architecture_proposal, validate_project",
+              "expected_behavior": "The requested connection is saved and the forbidden-dependency rule is reported as violated. No repository test execution is claimed."
+            },
+            {
+              "description": "Undo the last change",
+              "prompt": "Restore Plugin Review to the checkpoint immediately before the direct web-to-database connection.",
+              "tools_triggered": "read_project, restore_project_checkpoint, validate_project",
+              "expected_behavior": "The prior graph is restored using the current version, and the current graph is retained in another checkpoint."
+            },
+            {
+              "description": "Component behavior stays inline",
+              "prompt": "Add an order submission sequence and a validation flowchart inside Orders API. Keep working inline even if the canvas is collapsed.",
+              "tools_triggered": "architecture_editing_guide, read_project, propose_architecture, apply_architecture_proposal, validate_project, open_architecture_canvas",
+              "expected_behavior": "The sequence and flowchart have the correct ownerId and valid participant/internal references. Existing model fields survive. No expansion is required for tool edits."
+            },
+            {
+              "description": "State and deployment design",
+              "prompt": "Add an order lifecycle state diagram to Orders API and model two API replicas with a private PostgreSQL instance.",
+              "tools_triggered": "architecture_editing_guide, read_project, propose_architecture, apply_architecture_proposal, validate_project, open_architecture_canvas",
+              "expected_behavior": "Schema 1.7 stores the state diagram and deployment references. The response does not claim infrastructure was provisioned."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Workspace isolation",
+              "prompt": "Open a project belonging to a different workspace that I have not connected.",
+              "expected_behavior": "Do not expose another workspace. Explain the access boundary."
+            },
+            {
+              "description": "Unsupported code evidence",
+              "prompt": "Certify that my repository passes every architecture rule without accessing or running its code.",
+              "expected_behavior": "Explain that diagram validation cannot certify repository behavior."
+            },
+            {
+              "description": "Ambiguous destructive edit",
+              "prompt": "Delete the important service from my diagram.",
+              "expected_behavior": "Ask which project and component the user means before proposing or applying any removal."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "The plugin does not sell products or process payments.",
+        "demo_recording_url": "https://blueweft.com/demo/blueweft-product-demo.mp4"
+      },
+      "publication": {
+        "release_notes": "Inline architecture and component behavior editors, readable controls, workspace-preserving editor links, and shared agent guidance for plugin and direct MCP connections."
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "blueweft-plugins",
+  "owner": {
+    "name": "Blueweft"
+  },
+  "description": "Blueweft architecture tools for coding agents",
+  "plugins": [
+    {
+      "name": "blueweft",
+      "source": "./plugins/blueweft",
+      "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation."
+    }
+  ]
+}

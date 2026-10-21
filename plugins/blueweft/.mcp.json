@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "blueweft": {
+      "type": "http",
+      "url": "https://blueweft.com/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "dcr"
+            }
+          }
+        }
+      }
+    }
+  }
+}

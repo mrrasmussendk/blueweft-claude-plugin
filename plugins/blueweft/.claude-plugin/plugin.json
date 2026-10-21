@@ -1,0 +1,18 @@
+{
+  "name": "blueweft",
+  "version": "1.0.5",
+  "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
+  "author": {
+    "name": "Blueweft"
+  },
+  "homepage": "https://blueweft.com",
+  "repository": "https://github.com/mrrasmussendk/blueweft-claude-plugin",
+  "mcpServers": "./.mcp.json",
+  "license": "SEE LICENSE IN LICENSE",
+  "keywords": [
+    "architecture",
+    "diagrams",
+    "c4",
+    "mcp-apps"
+  ]
+}
