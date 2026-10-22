@@ -1,6 +1,6 @@
 {
   "name": "blueweft",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
   "author": {
     "name": "Blueweft"
@@ -25,7 +25,8 @@
       "Manage saved views and complete project backups",
       "Review diagram image imports with the chat host",
       "Inspect local repositories and execute authorized checks",
-      "Visually review architecture risks and limitations"
+      "Visually review architecture risks and limitations",
+      "Reject agent changes that violate declared architecture rules"
     ],
     "websiteURL": "https://blueweft.com",
     "supportURL": "https://github.com/mrrasmussendk/blueweft-claude-plugin/issues",
@@ -62,16 +63,16 @@
               "expected_behavior": "A durable decision is saved without replacing existing diagram content."
             },
             {
-              "description": "Validate a violation",
+              "description": "Reject a rule violation",
               "prompt": "In Plugin Review, add a direct web-to-database connection, then validate the architecture.",
-              "tools_triggered": "read_project, propose_architecture, apply_architecture_proposal, validate_project",
-              "expected_behavior": "The requested connection is saved and the forbidden-dependency rule is reported as violated. No repository test execution is claimed."
+              "tools_triggered": "read_project, propose_architecture",
+              "expected_behavior": "The proposal is rejected with ARCHITECTURE_RULES_BLOCKED, the rule ID and correction. The agent preserves the rule, explains the conflict, and does not apply the invalid connection or use another tool to bypass the constraint."
             },
             {
               "description": "Undo the last change",
-              "prompt": "Restore Plugin Review to the checkpoint immediately before the direct web-to-database connection.",
+              "prompt": "Restore Plugin Review to the checkpoint before its last authorized edit.",
               "tools_triggered": "read_project, restore_project_checkpoint, validate_project",
-              "expected_behavior": "The prior graph is restored using the current version, and the current graph is retained in another checkpoint."
+              "expected_behavior": "The requested historical graph is restored against the current version with a checkpoint. It is never used to evade blocked architecture rules."
             },
             {
               "description": "Component behavior stays inline",
@@ -109,7 +110,7 @@
         "demo_recording_url": "https://blueweft.com/demo/blueweft-product-demo.mp4"
       },
       "publication": {
-        "release_notes": "Adds a visual risks and limitations review to the website and inline plugin canvas, with highlighted design violations, shared dependencies, deployment review points, detail coverage, and explicit evidence gaps."
+        "release_notes": "Makes declared architecture rules mandatory for agent changes. Rejected proposals return rule IDs, rationale and corrections; apply rechecks rules. Explicit constraint amendments use a separate reviewed operation."
       }
     }
   }

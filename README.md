@@ -17,7 +17,7 @@ profile where you use Blueweft, then return to Claude. No Blueweft account,
 provider API key, or copied token is required for architecture editing.
 
 For later versions, refresh this marketplace and update `blueweft@blueweft-plugins`.
-The package version is **1.1.0**. Server updates and plugin updates are
+The package version is **1.2.0**. Server updates and plugin updates are
 separate; reconnect or rescan when server tool metadata changes.
 
 ## Connect from Claude, Claude Desktop, or Cowork
@@ -79,3 +79,5 @@ server source, frontend application source, credentials or application Git histo
 ## Visual risks and limitations
 
 In the inline workspace, choose **Find & actions → Risks & limitations** to see a dependency map, design violations, review points, unknowns, and design-detail coverage. Select a finding to highlight its components and connections; open a component to inspect it. The website has the same review in the sidebar and Canvas options. This review does not change the model or run repository tests, and it does not infer measured performance or availability.
+
+Agent edits enforce declared boundary rules before staging and again before applying. Violations return stable rule IDs, affected connections, rationale and required corrections. Rules cannot be silently removed, retargeted or downgraded; explicit constraint amendments use `propose_architecture_rules` separately. Warning severity does not waive a declared rule. Review points and unknowns remain observations, not invented constraints. This validates the design, not repository behavior.
