@@ -17,7 +17,7 @@ profile where you use Blueweft, then return to Claude. No Blueweft account,
 provider API key, or copied token is required for architecture editing.
 
 For later versions, refresh this marketplace and update `blueweft@blueweft-plugins`.
-The package version is **1.0.5**. Server updates and plugin updates are
+The package version is **1.1.0**. Server updates and plugin updates are
 separate; reconnect or rescan when server tool metadata changes.
 
 ## Connect from Claude, Claude Desktop, or Cowork
@@ -75,3 +75,7 @@ Public availability does not grant unrestricted reuse or redistribution.
 
 This repository receives generated plugin releases. It contains no application
 server source, frontend application source, credentials or application Git history.
+
+## Visual risks and limitations
+
+In the inline workspace, choose **Find & actions → Risks & limitations** to see a dependency map, design violations, review points, unknowns, and design-detail coverage. Select a finding to highlight its components and connections; open a component to inspect it. The website has the same review in the sidebar and Canvas options. This review does not change the model or run repository tests, and it does not infer measured performance or availability.

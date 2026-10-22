@@ -1,6 +1,6 @@
 {
   "name": "blueweft",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
   "author": {
     "name": "Blueweft"
@@ -24,7 +24,8 @@
       "Create immutable snapshots and implementation handoffs",
       "Manage saved views and complete project backups",
       "Review diagram image imports with the chat host",
-      "Inspect local repositories and execute authorized checks"
+      "Inspect local repositories and execute authorized checks",
+      "Visually review architecture risks and limitations"
     ],
     "websiteURL": "https://blueweft.com",
     "supportURL": "https://github.com/mrrasmussendk/blueweft-claude-plugin/issues",
@@ -108,7 +109,7 @@
         "demo_recording_url": "https://blueweft.com/demo/blueweft-product-demo.mp4"
       },
       "publication": {
-        "release_notes": "Inline architecture and component behavior editors, readable controls, workspace-preserving editor links, and shared agent guidance for plugin and direct MCP connections."
+        "release_notes": "Adds a visual risks and limitations review to the website and inline plugin canvas, with highlighted design violations, shared dependencies, deployment review points, detail coverage, and explicit evidence gaps."
       }
     }
   }
