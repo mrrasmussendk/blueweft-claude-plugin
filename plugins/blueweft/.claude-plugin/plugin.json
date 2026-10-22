@@ -1,6 +1,6 @@
 {
   "name": "blueweft",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
   "author": {
     "name": "Blueweft"
