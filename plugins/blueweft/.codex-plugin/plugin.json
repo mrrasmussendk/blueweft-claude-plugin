@@ -1,6 +1,6 @@
 {
   "name": "blueweft",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
   "author": {
     "name": "Blueweft"
@@ -110,7 +110,7 @@
         "demo_recording_url": "https://blueweft.com/demo/blueweft-product-demo.mp4"
       },
       "publication": {
-        "release_notes": "Makes declared architecture rules mandatory for agent changes. Rejected proposals return rule IDs, rationale and corrections; apply rechecks rules. Explicit constraint amendments use a separate reviewed operation."
+        "release_notes": "Accept omitted unused sequence guards, report precise validation field paths, and expand condition, repeat and parallel examples while preserving mandatory architecture-rule proposal and apply checks."
       }
     }
   }
