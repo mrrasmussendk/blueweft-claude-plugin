@@ -1,7 +1,7 @@
 {
   "name": "blueweft",
-  "version": "1.2.2",
-  "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
+  "version": "1.3.0",
+  "description": "Reverse engineer one or multiple repositories into editable Blueweft architecture and boundary diagrams, or design and update systems from your agent conversation.",
   "author": {
     "name": "Blueweft"
   },
@@ -12,10 +12,11 @@
   "interface": {
     "displayName": "Blueweft",
     "shortDescription": "Edit architecture with Codex",
-    "longDescription": "Create and update architecture diagrams, connections, boundary rules and architectural decisions through your Codex conversation. Approve access to your Blueweft browser workspace without creating a Blueweft account or copying tokens. Changes are proposed, version checked, and explicitly applied to the live project. View and edit the architecture inline in chat, including component sequence diagrams and internal flows. External editor links are optional. Checkpoints support undo. Validation checks the diagram and its rules; it does not verify repository code. Unsaved canvas edits are preserved rather than overwritten.",
+    "longDescription": "Map one or multiple repositories into an editable architecture with source evidence and explicit uncertainty using your host agent’s repository access. Create and update architecture diagrams, connections, boundary rules and architectural decisions through your Codex conversation. Approve access to your Blueweft browser workspace without creating a Blueweft account or copying tokens. Changes are proposed, version checked, and explicitly applied to the live project. View and edit the architecture inline in chat, including component sequence diagrams and internal flows. External editor links are optional. Checkpoints support undo. Validation checks the diagram and its rules; it does not verify repository code. Unsaved canvas edits are preserved rather than overwritten.",
     "developerName": "Blueweft",
     "category": "Developer Tools",
     "capabilities": [
+      "Reverse engineer one or multiple repositories with source evidence",
       "Create architecture and C4 diagrams",
       "Edit component sequence, flow and state diagrams inline",
       "Model deployments, API contracts and scenarios",
@@ -31,6 +32,7 @@
     "websiteURL": "https://blueweft.com",
     "supportURL": "https://github.com/mrrasmussendk/blueweft-claude-plugin/issues",
     "defaultPrompt": [
+      "Map the architecture and boundaries of these repositories in Blueweft, citing source evidence and uncertainties.",
       "Create an architecture with a web client, Orders API and PostgreSQL database.",
       "Add a rule that prevents the web client from accessing the database directly.",
       "Validate the architecture and explain any rule violations.",

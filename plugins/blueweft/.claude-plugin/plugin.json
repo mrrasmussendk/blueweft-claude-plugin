@@ -1,7 +1,7 @@
 {
   "name": "blueweft",
-  "version": "1.2.2",
-  "description": "Create and edit live Blueweft architecture diagrams, connections, boundary rules, and decisions from your agent conversation.",
+  "version": "1.3.0",
+  "description": "Reverse engineer one or multiple repositories into editable Blueweft architecture and boundary diagrams, or design and update systems from your agent conversation.",
   "author": {
     "name": "Blueweft"
   },
