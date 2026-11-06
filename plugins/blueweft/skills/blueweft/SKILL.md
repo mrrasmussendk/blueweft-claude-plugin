@@ -1,6 +1,6 @@
 ---
 name: blueweft
-description: Reverse engineer one or multiple repositories into Blueweft architecture and boundary diagrams, or design and edit C4 components, behavior, deployments, contracts, decisions, rules, and handoffs inline in chat.
+description: Reverse engineer one or multiple repositories into Blueweft architecture and boundary diagrams, or review, design, and continue iterating on C4 components, behavior, deployments, contracts, decisions, rules, and handoffs inline in chat.
 ---
 
 Use the connected Blueweft MCP tools. The user's normal agent does the design reasoning; Blueweft does not need an LLM API key for this workflow.
@@ -22,7 +22,14 @@ Example request: “Use these frontend, API and worker repositories to map the e
 
 Use `list_projects` to find the requested project, or `create_project` when the user asks for a new architecture. If several projects match and context does not identify one, ask which. Use `read_project` for the complete live model and its opaque version. Snapshot hashes from `get_architecture` identify immutable references and cannot be used as live project IDs.
 
+Determine the workflow from the user's request and the conversation, not from whether a design already exists:
+
+- **Review an existing design:** When asked to review, assess, or explain a design, inspect the current model and report findings, gaps, and recommendations. Do not change the model or apply proposals unless the user also asks for fixes. A missing runtime overview is a review finding, not authorization to create one.
+- **Continue an active design iteration:** When the user asks to continue, refine, extend, or make a concrete change within an ongoing design task, carry forward the established goals, constraints, and decisions. Read the latest model and implement the authorized next step through the proposal/apply workflow. Do not turn an active iteration into a review merely because a design already exists, restart discovery, or ask again for permission already given. An earlier design task does not override a later request for review only.
+
 For a new design, ask the missing questions that materially affect it: goals, users, scale, sensitive data, availability, and fixed constraints. Do not block a concrete requested edit on an unnecessary interview.
+
+Before adding detailed component views, establish a runtime overview in the model. Show the major running applications and services, data stores, queues, external systems, and the main request or event connections between them, with responsibilities and system boundaries clear. In a C4 design, use a container-level overview; a context-only diagram or a list of internal modules is insufficient. Reuse an adequate existing overview. If it is missing or outdated during an authorized design iteration, create or update it first, then add component detail within its owning runtime container. Keep the overview and detailed views consistent, preserving stable IDs and the existing modeling style. For a flat model, establish the equivalent runtime-level diagram before introducing component views; consult the editing guide before adding C4 hierarchy. Ask only for missing information that materially affects these runtime boundaries.
 
 Read `architecture_editing_guide` for schema details. Make the requested change to the complete model, keeping stable IDs and all unrelated fields: rules, optional C4 hierarchy, API contracts, behavior diagrams, scenarios, deployment environments, and domain knowledge. Record important rationale as `domainKnowledge` entries with kind `decision` in schema 1.7. Design rules are directional; distinguish `forbidden-dependency` from `required-connection`.
 
@@ -32,7 +39,7 @@ On `ARCHITECTURE_RULES_BLOCKED`, the proposal was rejected and no graph was appl
 
 Only when the user explicitly asks to amend the constraints, use `propose_architecture_rules` with the complete revised rule list and the user's reason. Show the exact rule change before applying. This operation cannot change the graph; all resulting rules must pass. Never switch to rule amendment, backup restore, checkpoint restore, image import, or creating another project as a workaround for a blocked edit. Ordinary graph edits may add satisfied rules, but must preserve existing constraints.
 
-Call `propose_architecture` with the base version, short summary, and complete architecture JSON. This validates structure and all declared rules before staging the change without updating the canvas. Apply rechecks the rules before any write. For a change the user already requested, call `apply_architecture_proposal` to explicitly apply it; an additional conversational approval is unnecessary. If only exploring options or asked for a review, describe the proposal without applying it.
+Call `propose_architecture` with the base version, short summary, and complete architecture JSON. This validates structure and all declared rules before staging the change without updating the canvas. Apply rechecks the rules before any write. For a change the user already requested, call `apply_architecture_proposal` to explicitly apply it; an additional conversational approval is unnecessary. For review-only or exploratory requests, describe recommendations without applying changes.
 
 On VERSION_CONFLICT, re-read and rebase once if the intent remains clear. If another conflict occurs or the intervening edits change the design intent, explain the conflict and ask how to reconcile it. Never force an overwrite. Reuse the proposal ID to retry an uncertain apply outcome. Applied proposals keep a checkpoint; use `restore_project_checkpoint` for a requested undo.
 
@@ -97,3 +104,8 @@ On malformed proposals, read the validation error's field path and correct that 
 ## Risks and limitations
 
 For a visual design review, open the interactive canvas and use **Find & actions → Risks & limitations**. The website offers the same review in its sidebar and Canvas options. Select a finding to highlight affected components or a dashed missing required connection, inspect the component, and follow the suggested next step. Review the complete model, including components outside a saved view. The coverage bars describe model detail, not runtime health. Shared dependencies and a single modeled replica are review points, not proven bottlenecks or outages. State what remains unknown; never invent throughput, latency, availability, operating cost, or repository results. Reviewing findings does not apply architecture changes or execute tests.
+
+When presenting a particular workflow, use `list_diagrams` to discover its ID and
+kind, then `open_diagram` to select it. Do not assume opening the architecture
+canvas displays a sequence or flow. Use `read_canvas_state` for client-reported
+selection and revision; a tool response with `acknowledged: false` is only a request.
