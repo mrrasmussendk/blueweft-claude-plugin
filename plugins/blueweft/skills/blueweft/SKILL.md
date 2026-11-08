@@ -5,6 +5,8 @@ description: Reverse engineer one or multiple repositories into Blueweft archite
 
 Use the connected Blueweft MCP tools. The user's normal agent does the design reasoning; Blueweft does not need an LLM API key for this workflow.
 
+If the user asks to sign in, or saved chat diagrams are missing on the website, call `request_sign_in` and present its browser URL. Never ask for passwords or tokens in chat. Anonymous connections remain supported; signing in opens a separate account workspace and does not change an existing agent connection. Explain how to explicitly copy projects using **Recover browser projects** in the signed-in website, or, when the original browser cookie is unavailable, export `read_project_backup` on the user's request and import the complete backup in the destination account. Reconnect the agent from the signed-in browser afterward and verify `list_projects`. Do not claim that signing in alone migrates projects or merge accounts based on names or email addresses.
+
 ## Architecture from repositories
 
 Route the request before asking the user to set anything up:
