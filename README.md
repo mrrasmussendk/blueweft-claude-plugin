@@ -17,7 +17,7 @@ profile where you use Blueweft, then return to Claude. No Blueweft account,
 provider API key, or copied token is required for architecture editing.
 
 For later versions, refresh this marketplace and update `blueweft@blueweft-plugins`.
-The package version is **1.3.2**. Server updates and plugin updates are
+The package version is **1.3.3**. Server updates and plugin updates are
 separate; reconnect or rescan when server tool metadata changes.
 
 ## Connect from Claude, Claude Desktop, or Cowork
