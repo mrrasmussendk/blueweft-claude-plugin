@@ -1,6 +1,6 @@
 {
   "name": "blueweft",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Reverse engineer one or multiple repositories into editable Blueweft architecture and boundary diagrams, or design and update systems from your agent conversation.",
   "author": {
     "name": "Blueweft"
@@ -8,7 +8,7 @@
   "homepage": "https://blueweft.com",
   "repository": "https://github.com/mrrasmussendk/blueweft-claude-plugin",
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
+  "mcpServers": "./.codex-mcp.json",
   "interface": {
     "displayName": "Blueweft",
     "shortDescription": "Edit architecture with Codex",
@@ -112,7 +112,7 @@
         "demo_recording_url": "https://blueweft.com/demo/blueweft-product-demo.mp4"
       },
       "publication": {
-        "release_notes": "Accept omitted unused sequence guards, report precise validation field paths, and expand condition, repeat and parallel examples while preserving mandatory architecture-rule proposal and apply checks."
+        "release_notes": "Project links returned by the tools now open in any browser without signing in: outside the connected browser workspace the diagram opens as the visitor's own copy, saved to their account when signed in. Guidance no longer directs users to sign in when a diagram does not open."
       }
     }
   }
