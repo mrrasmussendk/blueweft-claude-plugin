@@ -137,6 +137,29 @@ Present the result with `open_architecture_canvas` and `open_diagram` as appropr
 
 ## Pattern coverage and internal architecture canvases
 
+For executable C-lean checks from a diagram, use **Build & evidence → C-lean** or
+`generate_clean_harness` with `requestJson` containing `model`, the saved
+revision-bound `repositoryPlan`, and `repositories` (`repositoryId`, `languages`
+chosen from `csharp`, `typescript`, `python`). Read the current project snapshot
+and complete backup to obtain those inputs. The returned manifest and base64 ZIP
+are generated artifacts, not evidence that checks ran. It projects explicit local
+static forbidden dependencies and declared internal layers; other rules remain
+uncovered. Review mappings, run the bundled runner in the user's implementation
+repository or CI, then import its result through the C-lean panel. Reports are
+version-2 `cleanGate` workspace data, applied through the existing reviewed
+feature proposal flow. Show recorded violations and policy findings separately
+from design validation, tests and the full C-lean merge gate. Stale reports must
+not be described as current passes.
+
+The C-lean panel defaults to **Whole diagram**: select languages once and save
+them for every mapped repository, or customize repositories for mixed-language
+systems. The combined results view includes all applied repositories, with missing,
+incomplete and stale coverage explicit. Multiple result files can be reviewed and
+applied together. The version-2 namespace adds optional `settings` with
+`{scope:"diagram",languages:[...]}` or `{scope:"repository",repositories:[...]}`;
+preserve its `reports` when changing settings. Version-1 reports remain readable.
+Changing the saved analyzer selection makes results from different selections stale.
+
 Before constructing a complex pattern, call `pattern_modeling_guide`. Assess model, editor, plugin and visualization support independently. A valid schema is not evidence that the requested behavior is fully expressed or that the drawing is readable. Never silently flatten unsupported behavior.
 
 Use `read_modeling_workspace` with `read_project`. Preserve complete version-1 `componentCanvases` and `modelingReview` namespaces when editing them. `componentCanvases.canvases` contains ownerId, nodeIds, contextIds and positions keyed by stable model node IDs. nodeIds declares internal ownership; contextIds displays a peer without changing its ownership. Flat components may have internal canvases; C4 ownership must agree with parentId. C4 components remain the deepest structural C4 level.
