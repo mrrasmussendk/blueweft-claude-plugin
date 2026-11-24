@@ -1,6 +1,6 @@
 {
   "name": "blueweft",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "Reverse engineer one or multiple repositories into editable Blueweft architecture and boundary diagrams, or design and update systems from your agent conversation.",
   "author": {
     "name": "Blueweft"
@@ -27,7 +27,8 @@
       "Review diagram image imports with the chat host",
       "Inspect local repositories and execute authorized checks",
       "Visually review architecture risks and limitations",
-      "Reject agent changes that violate declared architecture rules"
+      "Reject agent changes that violate declared architecture rules",
+      "Generate C-lean repository harnesses from saved architecture and analyzer settings"
     ],
     "websiteURL": "https://blueweft.com",
     "supportURL": "https://github.com/mrrasmussendk/blueweft-claude-plugin/issues",
@@ -87,6 +88,12 @@
               "prompt": "Add an order lifecycle state diagram to Orders API and model two API replicas with a private PostgreSQL instance.",
               "tools_triggered": "architecture_editing_guide, read_project, propose_architecture, apply_architecture_proposal, validate_project, open_architecture_canvas",
               "expected_behavior": "Schema 1.7 stores the state diagram and deployment references. The response does not claim infrastructure was provisioned."
+            },
+            {
+              "description": "Generate C-lean through an existing plugin tool",
+              "prompt": "Generate the C-lean harness for my saved project using its repository plan and Python analyzer settings. Keep this in chat.",
+              "tools_triggered": "read_project, read_handoff_options, read_project_snapshot_bytes, propose_workspace_features, apply_architecture_proposal, export_project_handoff",
+              "expected_behavior": "When the direct generator is unavailable, the agent selects harnessPreset c-lean:harness on export_project_handoff at the current baseVersion. Missing plan/settings are staged and explicitly applied while preserving reports. The generated ZIP contains the runner and manifest; no check execution is claimed."
             }
           ],
           "negative": [
@@ -112,7 +119,7 @@
         "demo_recording_url": "https://blueweft.com/demo/blueweft-product-demo.mp4"
       },
       "publication": {
-        "release_notes": "Project links returned by the tools now open in any browser without signing in: outside the connected browser workspace the diagram opens as the visitor's own copy, saved to their account when signed in. Guidance no longer directs users to sign in when a diagram does not open."
+        "release_notes": "C-lean harnesses can be generated through the existing handoff export tool when a host has cached its tool catalog. Saved repository plans and analyzer settings remain revision checked; generation creates no execution evidence."
       }
     }
   }

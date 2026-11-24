@@ -137,19 +137,36 @@ Present the result with `open_architecture_canvas` and `open_diagram` as appropr
 
 ## Pattern coverage and internal architecture canvases
 
-For executable C-lean checks from a diagram, use **Build & evidence → C-lean** or
-`generate_clean_harness` with `requestJson` containing `model`, the saved
-revision-bound `repositoryPlan`, and `repositories` (`repositoryId`, `languages`
-chosen from `csharp`, `typescript`, `python`). Read the current project snapshot
-and complete backup to obtain those inputs. The returned manifest and base64 ZIP
-are generated artifacts, not evidence that checks ran. It projects explicit local
-static forbidden dependencies and declared internal layers; other rules remain
-uncovered. Review mappings, run the bundled runner in the user's implementation
-repository or CI, then import its result through the C-lean panel. Reports are
-version-2 `cleanGate` workspace data, applied through the existing reviewed
-feature proposal flow. Show recorded violations and policy findings separately
-from design validation, tests and the full C-lean merge gate. Stale reports must
-not be described as current passes.
+For executable C-lean checks from a diagram, prefer `generate_clean_harness` with
+`requestJson` containing `model`, the saved revision-bound `repositoryPlan`, and
+`repositories` (`repositoryId`, `languages` chosen from `csharp`, `typescript`,
+`python`). Read the current project and complete backup, then use
+`read_project_snapshot_bytes` at its `baseVersion` for the exact model and hash;
+do not hash a reconstructed or reformatted model.
+
+If the host does not expose `generate_clean_harness`, call `read_handoff_options`
+and check its `cleanHarness` descriptor. On a supporting server, use the existing
+`export_project_handoff` tool with `projectId`, the current `baseVersion`,
+`target:"codex"` or `"claude"`, and `harnessPreset:"c-lean:harness"`. It uses the saved
+`repositoryPlan` and version-2 `cleanGate.settings` analyzer selection. Configure
+missing ownership or language selections through `propose_workspace_features`,
+review the returned proposal, and explicitly `apply_architecture_proposal` for
+the authorized setup. Bind the plan to the exact snapshot, preserve existing
+reports and unrelated settings, and use the new project version after applying.
+This route needs no browser. If the server does not advertise it, explain the
+missing capability; refreshing the host's tool catalogue or plugin package is a
+separate step and is not proof that a tool became available.
+
+Download and extract the returned generated ZIP, inspect its manifest and
+mappings, and use its bundled runner only against the user's authorized local
+checkout or CI target. Never substitute a handwritten harness. Generation runs
+no checks. It projects explicit local static forbidden dependencies and declared
+internal layers; other rules remain uncovered. Record actual command results and
+review executed `clean-result.json` files before importing them through the panel
+or the existing workspace feature proposal/apply flow. Reports are version-2
+`cleanGate` workspace data; preserve settings and unrelated reports. Show recorded
+violations and policy findings separately from design validation, tests and the
+full C-lean merge gate. Stale reports must not be described as current passes.
 
 The C-lean panel defaults to **Whole diagram**: select languages once and save
 them for every mapped repository, or customize repositories for mixed-language
